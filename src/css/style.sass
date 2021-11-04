@@ -1,15 +1,70 @@
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=PT+Serif&family=PT+Sans:wght@300;400&display=swap')
 
+$item-border: 1px solid #888
+$border-radius: 25%
+$icon-margin-left: 5px
+$icon-size: 50px
+
 body
-  background: #1d755f
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  background: #fff
   font:
     family: "PT Sans", Tahoma, sans-serif
     size: 1rem
-  color: #0d362c
+  color: #333
+  margin: 20px
 
-  .app
-    .header
-      font:
-        family: "Allura", Brush Script MT, cursive
-        size: 2rem
-      color: #333333
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+  .header
+    padding: 10px 0
+    font:
+      size: 2rem
+      weight: bold
+
+  .app-view
+    margin-top: 30px
+    border:
+      top: $item-border
+      bottom: $item-border
+
+    .app-view-list
+      margin: 15px 0
+
+      .app-view-list-item
+        .list-item
+          display: flex
+          margin: 5px 0
+
+          .item-icon
+            height: $icon-size
+            border: $item-border
+            border-radius: $border-radius
+            @supports (aspect-ratio: 1)
+              aspect-ratio: 1
+
+          .item-description
+            display: flex
+            align-items: center
+            padding: 10px 0
+            margin-left: $icon-margin-left
+
+        .list-border
+          height: 0
+          margin-left: $icon-size + $icon-margin-left
+          border-top: $item-border
+
+      .app-view-list-item:last-child
+        .list-border
+          display: none
+
+  .app-add-list
+    flex-direction: row
+
+  .footer
+    text-align: center
