@@ -1,17 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=PT+Serif&family=PT+Sans:wght@300;400&display=swap')
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 400
+    stretch: normal
+  src: url("../fonts/texgyreheros-regular-webfont.woff")
 
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 700
+    stretch: normal
+  src: url("../fonts/texgyreheros-bold-webfont.woff")
+
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 400
+    stretch: condensed
+  src: url("../fonts/texgyreheroscn-regular-webfont.woff")
+
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 700
+    stretch: condensed
+  src: url("../fonts/texgyreheroscn-bold-webfont.woff")
+
+$min-height: 50px
 $item-border: 1px solid #888
 $border-radius: 25%
-$icon-margin-left: 5px
+$icon-margin-left: 10px
 $icon-size: 50px
+$gap: 30px
 
 body
   display: flex
   flex-direction: column
   flex-wrap: nowrap
+  height: calc(100vh - 40px)
   background: #fff
   font:
-    family: "PT Sans", Tahoma, sans-serif
+    family: "TeX Gyre Heros", Helvetica, sans-serif
+    weight: 400
+    stretch: normal
     size: 1rem
   color: #333
   margin: 20px
@@ -22,49 +53,85 @@ body
     margin: 0
 
   .header
-    padding: 10px 0
+    display: flex
+    align-items: center
+    min-height: $min-height + 10px
+    height: 10%
     font:
+      weight: 800
       size: 2rem
-      weight: bold
+    @media (max-width: 400px), (max-height: 400px)
+      font-size: 1.5rem
 
-  .app-view
-    margin-top: 30px
-    border:
-      top: $item-border
-      bottom: $item-border
+  .app
+    height: 80%
+    max-height: calc(100% - #{2 * $min-height})
 
-    .app-view-list
-      margin: 15px 0
+    .app-view
+      height: 100%
+      border:
+        top: $item-border
+        bottom: $item-border
+      overflow: scroll
 
-      .app-view-list-item
-        .list-item
-          display: flex
-          margin: 5px 0
+      .app-view-list
+        display: flex
+        flex-wrap: wrap
+        @media (max-aspect-ratio: 3/4)
+          flex-direction: column
 
-          .item-icon
-            height: $icon-size
-            border: $item-border
-            border-radius: $border-radius
-            @supports (aspect-ratio: 1)
-              aspect-ratio: 1
+          .app-view-list-item
+            flex: 1 1 100%
 
-          .item-description
+        @media (min-aspect-ratio: 3/4)
+          flex-direction: row
+          @supports (column-gap: $gap) and (display: flex)
+            column-gap: $gap
+
+          .app-view-list-item
+            flex: 1 1 calc((100% / 2) - #{$gap})
+            margin-right: $gap
+            @supports (column-gap: $gap) and (display: flex)
+              margin-right: 0
+
+        margin: 15px 0
+
+        .app-view-list-item
+          .list-item
             display: flex
-            align-items: center
-            padding: 10px 0
-            margin-left: $icon-margin-left
+            margin: 5px 0
 
-        .list-border
-          height: 0
-          margin-left: $icon-size + $icon-margin-left
-          border-top: $item-border
+            .item-icon
+              height: $icon-size
+              border: $item-border
+              border-radius: $border-radius
+              @supports (aspect-ratio: 1)
+                aspect-ratio: 1
+              @supports not (aspect-ratio: 1)
+                width: $icon-size
 
-      .app-view-list-item:last-child
-        .list-border
-          display: none
+            .item-description
+              display: flex
+              align-items: center
+              padding: 10px 0
+              margin-left: $icon-margin-left
 
-  .app-add-list
-    flex-direction: row
+          .list-border
+            height: 0
+            margin-left: $icon-size + $icon-margin-left
+            border-top: $item-border
+
+        .app-view-list-item:last-child
+          .list-border
+            display: none
+
+    .app-add-list
+      flex-direction: row
 
   .footer
+    display: flex
+    align-items: center
+    justify-content: center
+    min-height: $min-height - 10px
+    height: 10%
     text-align: center
