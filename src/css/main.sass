@@ -1,0 +1,93 @@
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 400
+    stretch: normal
+  src: url("../fonts/texgyreheros-regular-webfont.woff")
+
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 700
+    stretch: normal
+  src: url("../fonts/texgyreheros-bold-webfont.woff")
+
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 400
+    stretch: condensed
+  src: url("../fonts/texgyreheroscn-regular-webfont.woff")
+
+@font-face
+  font:
+    family: 'TeX Gyre Heros'
+    weight: 700
+    stretch: condensed
+  src: url("../fonts/texgyreheroscn-bold-webfont.woff")
+
+$min-height: 50px
+$item-border: 1px solid #888
+$border-radius: 25%
+$icon-margin-left: 10px
+$icon-size: 50px
+$gap: 30px
+
+body
+  position: relative
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  height: calc(100vh - 40px)
+  background: #fff
+  font:
+    family: "TeX Gyre Heros", Helvetica, sans-serif
+    weight: 400
+    stretch: normal
+    size: 1rem
+  color: #333
+  margin: 20px
+  overflow: hidden
+
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+  .header
+    display: flex
+    align-items: center
+    min-height: $min-height + 10px
+    height: 10%
+    font:
+      weight: 800
+      size: 2rem
+    @media (max-width: 400px), (max-height: 400px)
+      font-size: 1.5rem
+
+  .app
+    height: 80%
+    max-height: calc(100% - #{2 * $min-height})
+
+    .app-view
+      height: 100%
+      border:
+        top: $item-border
+        bottom: $item-border
+      overflow: scroll
+      scrollbar-width: none
+      &::-webkit-scrollbar
+        display: none
+
+      @import "list"
+
+    .app-add-list
+      flex-direction: row
+
+  .footer
+    display: flex
+    align-items: center
+    justify-content: center
+    min-height: $min-height - 10px
+    height: 10%
+    text-align: center

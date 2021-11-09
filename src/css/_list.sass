@@ -1,0 +1,93 @@
+.app-view-list
+  @media (max-aspect-ratio: 3/4)
+    display: flex
+    flex-wrap: wrap
+    margin: 15px 0
+    flex-direction: column
+
+    .app-view-list-item
+      flex: 1 1 100%
+
+  @media (min-aspect-ratio: 3/4)
+    column-count: 2
+    column-gap: $gap
+
+    .app-view-list-item
+      display: inline-block
+      width: 100%
+
+  .app-view-list-item
+    .list-item
+      display: flex
+
+      .item-icon
+        align-self: center
+        min-width: $icon-size
+        max-width: $icon-size
+        height: $icon-size
+        margin: 5px 0
+        border: $item-border
+        border-radius: $border-radius
+
+      .item-description
+        display: flex
+        align-items: center
+        padding: 10px 0
+        margin: 5px auto 5px $icon-margin-left
+
+      .item-delete
+        display: flex
+        align-items: center
+        justify-content: center
+
+        .item-delete-spoiler
+          position: absolute
+          left: -9999px
+
+          &:checked ~ .item-delete-button
+            visibility: visible
+            width: auto
+            padding: 0 10px
+            transition: all 50ms linear 0ms
+
+          &:not(:checked) ~ .item-delete-button
+            visibility: hidden
+            width: 0
+
+          &:checked ~ .item-delete-label
+            transform: rotate(180deg) translate(10px, 0)
+
+          &:not(:checked) ~ .item-delete-label
+            transform: none
+
+        .item-delete-label
+          display: flex
+          width: 20px
+          height: 20px
+          padding: 0 10px
+          margin-left: 10px
+          border: $item-border
+          border-radius: 10px
+
+        .item-delete-button
+          display: flex
+          align-items: center
+          justify-content: center
+          height: 100%
+          background: #f80000
+          color: white
+          transition: all 50ms linear 0ms
+
+          .item-delete-button-svg
+            height: $icon-size * 0.52
+            fill: white
+
+
+    .list-border
+      height: 0
+      margin-left: $icon-size + $icon-margin-left
+      border-top: $item-border
+
+  .app-view-list-item:last-child
+    .list-border
+      display: none
