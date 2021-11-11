@@ -1,20 +1,11 @@
 .app-view-list
   @media (max-aspect-ratio: 3/4)
-    display: flex
-    flex-wrap: wrap
-    margin: 15px 0
-    flex-direction: column
-
     .app-view-list-item
-      flex: 1 1 100%
+      width: 100%
 
   @media (min-aspect-ratio: 3/4)
-    column-count: 2
-    column-gap: $gap
-
     .app-view-list-item
-      display: inline-block
-      width: 100%
+      width: calc(50% - 10px)
 
   .app-view-list-item
     .list-item
