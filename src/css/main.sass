@@ -50,10 +50,10 @@ body
     stretch: normal
     size: 1rem
   color: #333
-  margin: 20px
+  margin: $body-margin
   overflow: hidden
 
-  @media (width > $max-body-width + 2 * $body-margin)
+  @media (min-width: $max-body-width + 2 * $body-margin)
     margin: $body-margin auto
 
   ul
@@ -137,18 +137,21 @@ body
             height: 60%
 
         #field-area
-          flex: 0 1 calc(100% - #{$clip-size * 0.8} - 4px)
+          flex: 0 1 calc(100% - #{$clip-size * 0.8} - 8px)
           padding: 6px 13px
           margin: 0
           border: 0
           border-radius: calc(calc(#{$clip-size} / 2) - 1px)
           font: inherit
+          &:focus
+            outline: 0
+            box-shadow: 0 0 0 2px #5bc166 inset
 
         #field-button
           $field-button-size: $clip-size * 0.8
           flex: 0 0 $field-button-size
           height: $field-button-size
-          padding-right: 4px
+          margin: 0 4px
           border: 0
           border-radius: calc(#{$field-button-size} / 2)
           background-color: #d1eed7
