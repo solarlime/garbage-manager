@@ -19,34 +19,31 @@
   },
   "homepage": "https://github.com/solarlime/garbage-manager#readme",
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.0",
+    "@types/masonry-layout": "^4",
     "@types/node": "^16.11.6",
-    "babel-loader": "^8.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
     "css-loader": "^6.5.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "eslint": "^8.1.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-import-resolver-node": "^0.3.6",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "html-loader": "^3.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.3",
     "sass": "^1.43.4",
     "sass-loader": "^12.3.0",
-    "typescript": "^4.4.4",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
     "webpack": "^5.34.0",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
   },
+  "packageManager": "yarn@3.2.0-rc.7",
   "dependencies": {
-    "masonry-layout": "^4.2.2",
-    "uniqid": "^5.3.0",
-    "validator": "^13.6.0"
-  },
-  "packageManager": "yarn@3.1.0"
+    "masonry-layout": "^4.2.2"
+  }
 }

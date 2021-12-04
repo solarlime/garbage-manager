@@ -3,45 +3,28 @@
     "browser": true,
     "es6": true
   },
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "extends": [
-    "airbnb-base"
+    "airbnb-base",
+    "airbnb-typescript/base"
   ],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
   "parserOptions": {
+    "project": ["./tsconfig.json"],
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "parser": "@babel/eslint-parser",
+  "parser": "@typescript-eslint/parser",
   "rules": {
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "no-restricted-syntax": [
       "error",
       "LabeledStatement",
       "WithStatement"
+    ],
+    "@typescript-eslint/lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
     ]
-  },
-  "overrides": [
-    {
-      "files": ["*.{ts,tsx}"]
-    }
-  ]
+  }
 }
