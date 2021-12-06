@@ -1,29 +1,25 @@
 @font-face
-  font:
-    family: 'TeX Gyre Heros'
-    weight: 400
-    stretch: normal
+  font-family: 'TeX Gyre Heros'
+  font-weight: 400
+  font-stretch: normal
   src: url("../fonts/texgyreheros-regular-webfont.woff")
 
 @font-face
-  font:
-    family: 'TeX Gyre Heros'
-    weight: 700
-    stretch: normal
+  font-family: 'TeX Gyre Heros'
+  font-weight: 700
+  font-stretch: normal
   src: url("../fonts/texgyreheros-bold-webfont.woff")
 
 @font-face
-  font:
-    family: 'TeX Gyre Heros'
-    weight: 400
-    stretch: condensed
+  font-family: 'TeX Gyre Heros'
+  font-weight: 400
+  font-stretch: condensed
   src: url("../fonts/texgyreheroscn-regular-webfont.woff")
 
 @font-face
-  font:
-    family: 'TeX Gyre Heros'
-    weight: 700
-    stretch: condensed
+  font-family: 'TeX Gyre Heros'
+  font-weight: 700
+  font-stretch: condensed
   src: url("../fonts/texgyreheroscn-bold-webfont.woff")
 
 $min-height: 50px
@@ -154,10 +150,23 @@ body
           margin: 0 4px
           border: 0
           border-radius: calc(#{$field-button-size} / 2)
-          background-color: #d1eed7
+          cursor: pointer
 
-        #field-button:hover
-          background-color: #5bc166
+          &:disabled
+            background-color: #f2939b
+
+            &:hover
+              background-color: #f80000
+              cursor: pointer
+
+          &:not(:disabled)
+            background-color: #5bc166
+
+            @media(hover)
+              background-color: #d1eed7
+
+              &:hover
+                background-color: #5bc166
 
   .footer
     display: flex
