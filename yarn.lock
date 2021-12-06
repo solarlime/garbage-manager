@@ -221,6 +221,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/validator@npm:^13":
+  version: 13.7.0
+  resolution: "@types/validator@npm:13.7.0"
+  checksum: 93b1ea1c24efc851db72f86da8e8cb85c16790ae9c6f8edc351048843224f3a2d3596fb8b207443d64300b88638d079f7da9b91a0d9b4426ef7f5f95189b7e85
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^5.5.0":
   version: 5.5.0
   resolution: "@typescript-eslint/eslint-plugin@npm:5.5.0"
@@ -2764,6 +2771,7 @@ __metadata:
   dependencies:
     "@types/masonry-layout": ^4
     "@types/node": ^16.11.6
+    "@types/validator": ^13
     "@typescript-eslint/eslint-plugin": ^5.5.0
     "@typescript-eslint/parser": ^5.5.0
     css-loader: ^6.5.0
@@ -2781,6 +2789,7 @@ __metadata:
     sass-loader: ^12.3.0
     ts-loader: ^9.2.6
     typescript: ^4.5.2
+    validator: ^13.7.0
     webpack: ^5.34.0
     webpack-cli: ^4.6.0
     webpack-dev-server: ^3.11.2
@@ -6916,6 +6925,13 @@ __metadata:
   version: 2.3.0
   resolution: "v8-compile-cache@npm:2.3.0"
   checksum: adb0a271eaa2297f2f4c536acbfee872d0dd26ec2d76f66921aa7fc437319132773483344207bdbeee169225f4739016d8d2dbf0553913a52bb34da6d0334f8e
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.7.0":
+  version: 13.7.0
+  resolution: "validator@npm:13.7.0"
+  checksum: 2b83283de1222ca549a7ef57f46e8d49c6669213348db78b7045bce36a3b5843ff1e9f709ebf74574e06223461ee1f264f8cc9a26a0060a79a27de079d8286ef
   languageName: node
   linkType: hard
 

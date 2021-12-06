@@ -57,4 +57,13 @@ export default class App {
       });
     }, { once: true });
   }
+
+  #addListeners(): void {
+    /**
+     * A listener for enabling and disabling a send button
+     */
+    this.#field.addEventListener('input', (): void => {
+      this.#fieldButton.disabled = validator.isEmpty(this.#field.value.trim());
+    });
+  }
 }
