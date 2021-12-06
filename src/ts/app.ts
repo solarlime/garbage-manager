@@ -1,14 +1,33 @@
 /* eslint-disable no-param-reassign */
 import * as Masonry from 'masonry-layout';
+import validator from 'validator';
 
 export default class App {
-  static init() {
-    const spoilers: NodeListOf<Element> = document.querySelectorAll('.item-delete-spoiler');
+  #body: Element;
+  #field: HTMLTextAreaElement;
+  #fieldButton: HTMLButtonElement;
+
+  constructor() {
+    this.#body = document.querySelector('body') as Element;
+    this.#field = this.#body.querySelector('#field-area') as HTMLTextAreaElement;
+    this.#fieldButton = this.#body.querySelector('#field-button') as HTMLButtonElement;
+
+    this.#field.value = '';
+
+    this.#init();
+    this.#addListeners();
+  }
+
+  #init(): void {
+    const spoilers: NodeListOf<Element> = this.#body.querySelectorAll('.item-delete-spoiler');
     spoilers
       .forEach((spoiler: Element): void => { (spoiler as HTMLInputElement).checked = false; });
 
+    /**
+     * A listener for creating a masonry layout
+     */
     window.addEventListener('load', () => {
-      const grid = document.querySelector('.app-view-list') as Element;
+      const grid = this.#body.querySelector('.app-view-list') as Element;
       const masonry = new Masonry(grid, {
         gutter: 20,
         itemSelector: '.app-view-list-item',
@@ -16,9 +35,13 @@ export default class App {
         columnWidth: '.app-view-list-item',
       });
 
-      grid.addEventListener('click', (event: Event) => {
+      /**
+       * A listener for hiding spoilers:
+       * if there's a click on the input area or on another spoiler
+       */
+      this.#body.addEventListener('click', (event: Event) => {
         const target = event.target as Element;
-        if (target.matches('.item-delete-spoiler')) {
+        if (target.matches('.item-delete-spoiler') || target.closest('ul')?.matches('.app-add-list')) {
           Array.from(spoilers)
             .filter((spoiler): Boolean => (spoiler !== target)
                 && (spoiler as HTMLInputElement).checked)
