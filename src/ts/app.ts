@@ -6,11 +6,13 @@ export default class App {
   #body: Element;
   #field: HTMLTextAreaElement;
   #fieldButton: HTMLButtonElement;
+  #clipInput: HTMLInputElement;
 
   constructor() {
     this.#body = document.querySelector('body') as Element;
     this.#field = this.#body.querySelector('#field-area') as HTMLTextAreaElement;
     this.#fieldButton = this.#body.querySelector('#field-button') as HTMLButtonElement;
+    this.#clipInput = this.#body.querySelector('#clip-input') as HTMLInputElement;
 
     this.#field.value = '';
 
@@ -19,7 +21,7 @@ export default class App {
   }
 
   #init(): void {
-    const spoilers: NodeListOf<Element> = this.#body.querySelectorAll('.item-delete-spoiler');
+    const spoilers = this.#body.querySelectorAll('.item-delete-spoiler');
     spoilers
       .forEach((spoiler: Element): void => { (spoiler as HTMLInputElement).checked = false; });
 
@@ -41,7 +43,7 @@ export default class App {
        */
       this.#body.addEventListener('click', (event: Event) => {
         const target = event.target as Element;
-        if (target.matches('.item-delete-spoiler') || target.closest('ul')?.matches('.app-add-list')) {
+        if (target.matches('.item-delete-spoiler') || target.closest('.app-add')?.matches('.app-add-list')) {
           Array.from(spoilers)
             .filter((spoiler): Boolean => (spoiler !== target)
                 && (spoiler as HTMLInputElement).checked)
@@ -65,5 +67,29 @@ export default class App {
     this.#field.addEventListener('input', (): void => {
       this.#fieldButton.disabled = validator.isEmpty(this.#field.value.trim());
     });
+
+    /**
+     * A service function for calling a form via its name
+     * @param forms
+     * @param string
+     */
+    function formsString(forms: HTMLCollectionOf<HTMLFormElement>, string: string):
+    HTMLFormElement | undefined {
+      const index = Array.from(forms).findIndex((item) => item.id === string);
+      return forms[index];
+    }
+
+    /**
+     * A listener function for buttons' listeners
+     * @param item
+     */
+    function buttonClickListener(item: string): void {
+      const formData = new FormData(formsString(document.forms, item));
+      console.log(...formData);
+      // TODO: sending formData
+    }
+
+    this.#fieldButton.addEventListener('click', () => buttonClickListener('field'));
+    this.#clipInput.addEventListener('input', () => buttonClickListener('clip'));
   }
 }

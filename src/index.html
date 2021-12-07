@@ -33,7 +33,7 @@
                     <li class="app-view-list-item">
                         <div class="list-item">
                             <div class="item-icon"></div>
-                            <div class="item-description">A very big item which shows a behavour, if there's a big text. A maybe something different. But not now</div>
+                            <div class="item-description">A very big item which shows a behaviour, if there's a big text. A maybe something different. But not now</div>
                             <div class="item-delete">
                                 <input type="checkbox" id="bbbbbb" class="item-delete-spoiler">
                                 <label for="bbbbbb" class="item-delete-label"><img class="item-delete-button-svg" src="/src/img/next.png" alt="Show / hide a delete button"></label>
@@ -51,7 +51,7 @@
                     <li class="app-view-list-item">
                         <div class="list-item">
                             <div class="item-icon"></div>
-                            <div class="item-description">A very big item 2 which shows a behavour, if there's a big text. A maybe something different. But not now</div>
+                            <div class="item-description">A very big item 2 which shows a behaviour, if there's a big text. A maybe something different. But not now</div>
                             <div class="item-delete">
                                 <input type="checkbox" id="dddddd" class="item-delete-spoiler">
                                 <label for="dddddd" class="item-delete-label"><img class="item-delete-button-svg" src="/src/img/next.png" alt="Show / hide a delete button"></label>
@@ -105,7 +105,7 @@
                     <li class="app-view-list-item">
                         <div class="list-item">
                             <div class="item-icon"></div>
-                            <div class="item-description">A very big item 3 which shows a behavour, if there's a big text. A maybe something different. But not now</div>
+                            <div class="item-description">A very big item 3 which shows a behaviour, if there's a big text. A maybe something different. But not now</div>
                             <div class="item-delete">
                                 <input type="checkbox" id="ffffff" class="item-delete-spoiler">
                                 <label for="ffffff" class="item-delete-label"><img class="item-delete-button-svg" src="/src/img/next.png" alt="Show / hide a delete button"></label>
@@ -123,16 +123,17 @@
                 </ul>
             </div>
             <div class="app-add">
-                <ul class="app-add-list">
-                    <li class="app-add-list-item clip">
+                <div class="app-add-list">
+                    <form class="app-add-list-item" id="clip">
+                        <input name="files" id="clip-input" type="file" multiple>
                         <button id="clip-button" type="button"><img id="clip-button-img" src="/src/img/paper-clip.png" alt="Send a file"></button>
-                    </li>
-                    <li class="app-add-list-item field">
+                    </form>
+                    <form class="app-add-list-item" id="field">
                         <label for="field-area"></label>
-                        <textarea name="input" id="field-area" placeholder="Write your text here"></textarea>
+                        <textarea name="text" id="field-area" placeholder="Write your text here"></textarea>
                         <button id="field-button" type="button" disabled></button>
-                    </li>
-                </ul>
+                    </form>
+                </div>
             </div>
         </main>
         <footer class="footer">Made with love by solarlime</footer>
