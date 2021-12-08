@@ -221,6 +221,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uniqid@npm:^5":
+  version: 5.3.1
+  resolution: "@types/uniqid@npm:5.3.1"
+  checksum: 09ac437d9f19ebd2d7a0697f143f1bd0ba440764ade909ad41c4c50f9d39ea9cb3594d65d5e7cebfc209727231b385aa8e182bb871dbb1f76ea893e5aeea79cb
+  languageName: node
+  linkType: hard
+
 "@types/validator@npm:^13":
   version: 13.7.0
   resolution: "@types/validator@npm:13.7.0"
@@ -2771,6 +2778,7 @@ __metadata:
   dependencies:
     "@types/masonry-layout": ^4
     "@types/node": ^16.11.6
+    "@types/uniqid": ^5
     "@types/validator": ^13
     "@typescript-eslint/eslint-plugin": ^5.5.0
     "@typescript-eslint/parser": ^5.5.0
@@ -2789,6 +2797,7 @@ __metadata:
     sass-loader: ^12.3.0
     ts-loader: ^9.2.6
     typescript: ^4.5.2
+    uniqid: ^5.4.0
     validator: ^13.7.0
     webpack: ^5.34.0
     webpack-cli: ^4.6.0
@@ -6794,6 +6803,13 @@ __metadata:
     is-extendable: ^0.1.1
     set-value: ^2.0.1
   checksum: a3464097d3f27f6aa90cf103ed9387541bccfc006517559381a10e0dffa62f465a9d9a09c9b9c3d26d0f4cbe61d4d010e2fbd710fd4bf1267a768ba8a774b0ba
+  languageName: node
+  linkType: hard
+
+"uniqid@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "uniqid@npm:5.4.0"
+  checksum: 69fc28e7b2b5b24227b4295e51aa7c1d4085a60655ad071db8fc350876cc9044d68ee0781c0d27c2c98691380aa418970e0d1b02a1e4564480f9d19b0dc1707b
   languageName: node
   linkType: hard
 

@@ -1,66 +1,87 @@
 /* eslint-disable no-param-reassign */
 import * as Masonry from 'masonry-layout';
 import validator from 'validator';
+import * as uniqid from 'uniqid';
+import { render, formsString } from './utils';
+import { Result } from './interfaces';
 
 export default class App {
-  #body: Element;
-  #field: HTMLTextAreaElement;
-  #fieldButton: HTMLButtonElement;
-  #clipInput: HTMLInputElement;
+  readonly #body: HTMLBodyElement;
+  readonly #list: HTMLUListElement;
+  readonly #field: HTMLTextAreaElement;
+  readonly #fieldButton: HTMLButtonElement;
+  readonly #clipInput: HTMLInputElement;
+  private readonly serverHost: string;
 
-  constructor() {
-    this.#body = document.querySelector('body') as Element;
+  constructor(serverHost: string) {
+    this.serverHost = serverHost;
+    this.#body = document.querySelector('body') as HTMLBodyElement;
+    this.#list = this.#body.querySelector('.app-view-list') as HTMLUListElement;
     this.#field = this.#body.querySelector('#field-area') as HTMLTextAreaElement;
     this.#fieldButton = this.#body.querySelector('#field-button') as HTMLButtonElement;
     this.#clipInput = this.#body.querySelector('#clip-input') as HTMLInputElement;
 
     this.#field.value = '';
 
-    this.#init();
-    this.#addListeners();
-  }
-
-  #init(): void {
-    const spoilers = this.#body.querySelectorAll('.item-delete-spoiler');
-    spoilers
-      .forEach((spoiler: Element): void => { (spoiler as HTMLInputElement).checked = false; });
-
-    /**
-     * A listener for creating a masonry layout
-     */
-    window.addEventListener('load', () => {
-      const grid = this.#body.querySelector('.app-view-list') as Element;
-      const masonry = new Masonry(grid, {
-        gutter: 20,
-        itemSelector: '.app-view-list-item',
-        percentPosition: true,
-        columnWidth: '.app-view-list-item',
-      });
-
-      /**
-       * A listener for hiding spoilers:
-       * if there's a click on the input area or on another spoiler
-       */
-      this.#body.addEventListener('click', (event: Event) => {
-        const target = event.target as Element;
-        if (target.matches('.item-delete-spoiler') || target.closest('.app-add')?.matches('.app-add-list')) {
-          Array.from(spoilers)
-            .filter((spoiler): Boolean => (spoiler !== target)
-                && (spoiler as HTMLInputElement).checked)
-            .forEach((spoiler): void => { (spoiler as HTMLInputElement).checked = false; });
-          const timeout = setTimeout(() => {
-            if (masonry !== undefined) {
-              // @ts-ignore
-              masonry.layout();
-            }
-            clearTimeout(timeout);
-          }, 100);
+    this.#init()
+      .then((masonry) => {
+        if (masonry instanceof Masonry) {
+          this.#addListeners(masonry);
+        } else {
+          alert('Can\'t initialise Masonry!');
         }
       });
-    }, { once: true });
   }
 
-  #addListeners(): void {
+  #init(): Promise<Masonry | undefined> {
+    return new Promise((resolve, reject) => {
+      const spoilers = this.#body.querySelectorAll('.item-delete-spoiler');
+      spoilers
+        .forEach((spoiler: Element): void => { (spoiler as HTMLInputElement).checked = false; });
+
+      /**
+       * A listener for creating a masonry layout
+       */
+      window.addEventListener('load', () => {
+        try {
+          const masonry = new Masonry(this.#list, {
+            gutter: 20,
+            itemSelector: '.app-view-list-item',
+            percentPosition: true,
+            columnWidth: '.app-view-list-item',
+          });
+
+          /**
+           * A listener for hiding spoilers:
+           * if there's a click on the input area or on another spoiler
+           */
+          this.#body.addEventListener('click', (event: Event) => {
+            const target = event.target as Element;
+            if (target.matches('.item-delete-spoiler') || target.closest('.app-add')?.matches('.app-add-list')) {
+              Array.from(spoilers)
+                .filter((spoiler): Boolean => (spoiler !== target)
+                  && (spoiler as HTMLInputElement).checked)
+                .forEach((spoiler): void => { (spoiler as HTMLInputElement).checked = false; });
+              const timeout = setTimeout(() => {
+                if (masonry !== undefined) {
+                  // @ts-ignore
+                  masonry.layout();
+                }
+                clearTimeout(timeout);
+              }, 100);
+            }
+          }, { once: true });
+
+          resolve(masonry);
+        } catch (e) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject(undefined);
+        }
+      });
+    });
+  }
+
+  #addListeners(msnry: Masonry): void {
     /**
      * A listener for enabling and disabling a send button
      */
@@ -69,27 +90,48 @@ export default class App {
     });
 
     /**
-     * A service function for calling a form via its name
-     * @param forms
-     * @param string
-     */
-    function formsString(forms: HTMLCollectionOf<HTMLFormElement>, string: string):
-    HTMLFormElement | undefined {
-      const index = Array.from(forms).findIndex((item) => item.id === string);
-      return forms[index];
-    }
-
-    /**
      * A listener function for buttons' listeners
+     * @param serverHost
+     * @param list
+     * @param masonry
      * @param item
      */
-    function buttonClickListener(item: string): void {
+    async function buttonClickListener(
+      serverHost: string,
+      list: HTMLUListElement,
+      masonry: Masonry,
+      item: string,
+    ): Promise<void> {
       const formData = new FormData(formsString(document.forms, item));
+      formData.set('id', uniqid());
       console.log(...formData);
-      // TODO: sending formData
+      try {
+        const res = await fetch(`${serverHost}/garbage-manager/mongo/add/`, {
+          method: 'POST',
+          body: formData,
+        });
+        const result: Result = await res.json();
+        // const result = {
+        //   action: 'Add',
+        //   status: 'OK',
+        //   data: {
+        //     id: uniqid(),
+        //     content: 'Big big text\n\nThe next part of big big text\n- One\n- By one',
+        //   },
+        // };
+        if (result.status === 'OK') {
+          const newItem: HTMLLIElement = render(list, result.data);
+          // @ts-ignore
+          masonry.appended(newItem);
+        } else {
+          alert(result);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
 
-    this.#fieldButton.addEventListener('click', () => buttonClickListener('field'));
-    this.#clipInput.addEventListener('input', () => buttonClickListener('clip'));
+    this.#fieldButton.addEventListener('click', () => buttonClickListener(this.serverHost, this.#list, msnry, 'field'));
+    this.#clipInput.addEventListener('input', () => buttonClickListener(this.serverHost, this.#list, msnry, 'clip'));
   }
 }
