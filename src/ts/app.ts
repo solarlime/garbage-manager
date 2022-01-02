@@ -3,7 +3,7 @@ import * as Masonry from 'masonry-layout';
 import validator from 'validator';
 import * as uniqid from 'uniqid';
 import { render, formsString } from './utils';
-import { Result } from './interfaces';
+import { Data, Result } from './interfaces';
 
 export default class App {
   readonly #body: HTMLBodyElement;
@@ -106,7 +106,7 @@ export default class App {
       formData.set('id', uniqid());
       console.log(...formData);
       try {
-        const res = await fetch(`${serverHost}/garbage-manager/mongo/add/`, {
+        const res = await fetch(`${serverHost}/garbage-manager/mongo/update/`, {
           method: 'POST',
           body: formData,
         });
@@ -120,7 +120,7 @@ export default class App {
         //   },
         // };
         if (result.status === 'OK') {
-          const newItem: HTMLLIElement = render(list, result.data);
+          const newItem: HTMLLIElement = render(list, result.data as Data);
           // @ts-ignore
           masonry.appended(newItem);
         } else {

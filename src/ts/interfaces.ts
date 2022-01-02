@@ -1,10 +1,11 @@
 export interface Data {
   readonly id: string,
-  readonly content: string | Blob
+  readonly type: string,
+  readonly content: string | File
 }
 
 export interface Result {
   readonly action: 'Fetch' | 'Add' | 'Delete'
   readonly status: 'OK' | 'Failure',
-  readonly data: Data
+  readonly data: Data | string
 }

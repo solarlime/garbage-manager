@@ -5,7 +5,7 @@ import './css/main.sass';
 let serverHost;
 const { hostname, protocol } = window.location;
 if (hostname === 'localhost') {
-  serverHost = `${protocol}//${hostname}:3001`;
+  serverHost = `${protocol}//${hostname}:3002`;
 } else {
   serverHost = `${protocol}//nginx.solarlime.dev`;
 }
