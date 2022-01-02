@@ -35,8 +35,8 @@ export default class App {
 
   #init(): Promise<Masonry | undefined> {
     return new Promise((resolve, reject) => {
-      const spoilers = this.#body.querySelectorAll('.item-delete-spoiler');
-      spoilers
+      const firstSpoilers = this.#body.querySelectorAll('.item-delete-spoiler');
+      firstSpoilers
         .forEach((spoiler: Element): void => { (spoiler as HTMLInputElement).checked = false; });
 
       /**
@@ -57,6 +57,7 @@ export default class App {
            */
           this.#body.addEventListener('click', (event: Event) => {
             const target = event.target as Element;
+            const spoilers = this.#body.querySelectorAll('.item-delete-spoiler');
             if (target.matches('.item-delete-spoiler') || target.closest('.app-add')?.matches('.app-add-list')) {
               Array.from(spoilers)
                 .filter((spoiler): Boolean => (spoiler !== target)
@@ -70,7 +71,7 @@ export default class App {
                 clearTimeout(timeout);
               }, 100);
             }
-          }, { once: true });
+          });
 
           resolve(masonry);
         } catch (e) {
@@ -119,10 +120,12 @@ export default class App {
         //     content: 'Big big text\n\nThe next part of big big text\n- One\n- By one',
         //   },
         // };
+        console.log(result);
         if (result.status === 'OK') {
           const newItem: HTMLLIElement = render(list, result.data as Data);
           // @ts-ignore
           masonry.appended(newItem);
+          newItem.scrollIntoView();
         } else {
           alert(result);
         }
